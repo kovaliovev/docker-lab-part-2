@@ -1,4 +1,4 @@
-FROM golang:1.22.3-alpine
+FROM golang:1.22.3-alpine AS build
 
 WORKDIR /docker-lab-part-2/
 
@@ -10,4 +10,12 @@ COPY . .
 
 RUN go build -o build/fizzbuzz
 
-CMD ["./build/fizzbuzz", "serve"]
+FROM scratch
+
+WORKDIR /docker-lab-part-2/
+
+COPY --from=build /docker-lab-part-2/templates templates
+
+COPY --from=build /docker-lab-part-2/build/fizzbuzz build/fizzbuzz
+
+CMD ["./fizzbuzz", "serve"]
