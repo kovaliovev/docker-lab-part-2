@@ -16,6 +16,6 @@ WORKDIR /docker-lab-part-2/
 
 COPY --from=build /docker-lab-part-2/templates templates
 
-COPY --from=build /docker-lab-part-2/build/fizzbuzz build/fizzbuzz
+COPY --from=build /docker-lab-part-2/build/fizzbuzz fizzbuzz
 
 CMD ["./fizzbuzz", "serve"]
